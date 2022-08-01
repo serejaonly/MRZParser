@@ -31,10 +31,9 @@ public struct MRZParser {
         return .init(
             format: format,
             documentType: {
-                guard let documentTypeFirstElement = mrzCode.documentTypeField.value.first else { return .undefined }
-                return MRZResult.DocumentType.allCases.first(where: {
-                    $0.identifiers.contains(String(documentTypeFirstElement))
-                }) ?? .undefined
+                let documentType = mrzCode.documentTypeField.value
+                set(secondCharacter: documentType.count == 2 ? documentType.last : nil)
+                return MRZResult.DocumentType.allCases.first { $0.identifier == documentType.first} ?? .undefined
             }(),
             countryCode: mrzCode.countryCodeField.value,
             surnames: mrzCode.namesField.surnames,

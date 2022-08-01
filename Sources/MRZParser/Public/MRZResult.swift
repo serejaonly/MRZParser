@@ -118,3 +118,8 @@ public struct MRZResult: Hashable {
     }
 }
 
+extension MRZParser {
+    func set(secondCharacter: Character?) {
+        MRZResult.DocumentType.secondCharacter = secondCharacter
+    }
+}
