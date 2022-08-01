@@ -45,12 +45,15 @@ final class MRZParserTests: XCTestCase {
             optionalData2: ""
         )
 
-        XCTAssertEqual(parser.parse(mrzString: mrzString), result)
+        let parserResult = parser.parse(mrzString: mrzString)
+
+        XCTAssertEqual(parserResult, result)
+        XCTAssertEqual(parserResult?.documentType.secondCharacter, nil)
     }
 
     func testTD2() {
         let mrzString = """
-                        I<UTOERIKSSON<<ANNA<MARIA<<<<<<<<<<<
+                        IRUTOERIKSSON<<ANNA<MARIA<<<<<<<<<<<
                         D231458907UTO7408122F1204159<<<<<<<6
                         """
         let result = MRZResult(
@@ -68,7 +71,10 @@ final class MRZParserTests: XCTestCase {
             optionalData2: nil
         )
 
-        XCTAssertEqual(parser.parse(mrzString: mrzString), result)
+        let parserResult = parser.parse(mrzString: mrzString)
+
+        XCTAssertEqual(parserResult, result)
+        XCTAssertEqual(parserResult?.documentType.secondCharacter, Character("R"))
     }
 
     func testTD3() {
@@ -91,7 +97,10 @@ final class MRZParserTests: XCTestCase {
             optionalData2: nil
         )
 
-        XCTAssertEqual(parser.parse(mrzString: mrzString), result)
+        let parserResult = parser.parse(mrzString: mrzString)
+
+        XCTAssertEqual(parserResult, result)
+        XCTAssertEqual(parserResult?.documentType.secondCharacter, nil)
     }
 
     func testTD3RussianInternationalPassport() {
@@ -137,7 +146,10 @@ final class MRZParserTests: XCTestCase {
             optionalData2: nil
         )
 
-        XCTAssertEqual(parser.parse(mrzString: mrzString), result)
+        let parserResult = parser.parse(mrzString: mrzString)
+
+        XCTAssertEqual(parserResult, result)
+        XCTAssertEqual(parserResult?.documentType.secondCharacter, Character("N"))
     }
 
     func testTD3NetherlandsPassport() {
@@ -160,7 +172,10 @@ final class MRZParserTests: XCTestCase {
             optionalData2: nil
         )
 
-        XCTAssertEqual(parser.parse(mrzString: mrzString), result)
+        let parserResult = parser.parse(mrzString: mrzString)
+
+        XCTAssertEqual(parserResult, result)
+        XCTAssertEqual(parserResult?.documentType.secondCharacter, nil)
     }
 
     func testMRVA() {
@@ -183,7 +198,10 @@ final class MRZParserTests: XCTestCase {
             optionalData2: nil
         )
 
-        XCTAssertEqual(parser.parse(mrzString: mrzString), result)
+        let parserResult = parser.parse(mrzString: mrzString)
+
+        XCTAssertEqual(parserResult, result)
+        XCTAssertEqual(parserResult?.documentType.secondCharacter, nil)
     }
 
     func testMRVB() {
@@ -206,6 +224,9 @@ final class MRZParserTests: XCTestCase {
             optionalData2: nil
         )
 
-        XCTAssertEqual(parser.parse(mrzString: mrzString), result)
+        let parserResult = parser.parse(mrzString: mrzString)
+
+        XCTAssertEqual(parserResult, result)
+        XCTAssertEqual(parserResult?.documentType.secondCharacter, nil)
     }
 }
