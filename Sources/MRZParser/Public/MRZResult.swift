@@ -36,21 +36,24 @@ public struct MRZResult: Hashable {
         case visa
         case passport
         case id
-        case residencePermit
         case undefined
 
-        var identifiers: [String] {
+        public var secondCharacter: Character? {
+            Self.secondCharacter
+        }
+
+        fileprivate static var secondCharacter: Character?
+
+        var identifier: Character {
             switch self {
             case .visa:
-                return ["V"]
+                return "V"
             case .passport:
-                return ["P", "PN"]
+                return "P"
             case .id:
-                return ["I"]
-            case .residencePermit:
-                return ["IR"]
+                return "I"
             case .undefined:
-                return []
+                return "_"
             }
         }
     }
